@@ -19,7 +19,7 @@ export class UserServiceService {
   public getFullNameFromStore() {
    return this.fullName$.asObservable();
   }
-  public setFullNameFromStore(fullName: string) {
+  public setFullNameForStore(fullName: string) {
     this.fullName$.next(fullName)
   }
 }

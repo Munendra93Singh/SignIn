@@ -10,8 +10,10 @@ import { UserServiceService } from 'src/app/services/user-service.service';
 })
 export class DashboardComponent implements OnInit {
   public users: any=[];
+  public role! : string;
 
   public fullName :string ="";  
+
   constructor(private api:ApiService,
               private auth: AuthService,              
               private userStore :UserServiceService) { }
@@ -22,12 +24,16 @@ export class DashboardComponent implements OnInit {
       this.users = res;
     });
 
-    this.userStore.getFullNameFromStore()
+    this.userStore.getFullNameFromStore() 
     .subscribe(val=>{
-      let fullNameFromToken = this.auth.getfullNameFromToken();
+      const fullNameFromToken = this.auth.getfullNameFromToken();
       this.fullName = val || fullNameFromToken
       // console.log(this.fullName);
-    })
+    });
+    this.userStore.getRoleFromStore().subscribe(val =>{
+      const roleFromToken = this.auth.getRoleFromToken();
+      this.role = val || roleFromToken
+    });
   }
 
   logOut(): void {

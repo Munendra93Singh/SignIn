@@ -40,13 +40,12 @@ export class LoginComponent implements OnInit {
   onlogin() {
     if (this.loginForm.valid) {
       console.log(this.loginForm.value)
-      this.auth.login(this.loginForm.value)
-      .subscribe({
+      this.auth.login(this.loginForm.value).subscribe({
         next:(res)=>{
           this.loginForm.reset();
           this.auth.storeToken(res.token);
           const tokenPayload = this.auth.decodedToken();
-          this.userStore.setFullNameFromStore(tokenPayload.name);
+          this.userStore.setFullNameForStore(tokenPayload.name);
           this.userStore.setRoleForStore(tokenPayload.role)
           // alert(res.message);
           this.toast.success({detail:"Success",summary:res.message,duration:5000})
